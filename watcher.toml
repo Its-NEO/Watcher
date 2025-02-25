@@ -1,0 +1,2 @@
+targets = ["txt", "rs"]
+endpoint = ["localhost:9996"]
