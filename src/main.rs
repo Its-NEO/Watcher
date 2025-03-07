@@ -250,6 +250,11 @@ impl Node {
             child.poll(buffer);
         }
     }
+
+    fn compare(&self, other: &Node) {
+        let smaller = self.children.iter(); // TODO: filter the children that are not present in
+                                            // the other
+    }
 }
 
 struct Notification {
@@ -369,15 +374,27 @@ async fn main() {
     ft.fill();
 
     let mut notifications: Vec<Notification> = Vec::new();
-    let now = Instant::now();
+    let mut cycle = 0;
+    const TREE_REBUILD_CYCLE: usize = 1000;
+
     loop {
+        cycle += 1;
+
         ft.head.poll(&mut notifications);
         if let Some(notif) = notifications.pop() {
             notif.display();
             let _ = notif.notify().await;
         }
 
+        if cycle == TREE_REBUILD_CYCLE {
+            ft = FileTree::new();
+            ft.fill();
+
+            cycle = 0;
+        }
+
         sleep(Duration::new(0, TIMEPERIOD));
+        
     }
 }
 
@@ -410,4 +427,5 @@ async fn main() {
  * with its new version. This saves space and time.
  *
  */
- 
+
+// hello world
