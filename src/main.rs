@@ -250,11 +250,6 @@ impl Node {
             child.poll(buffer);
         }
     }
-
-    fn compare(&self, other: &Node) {
-        let smaller = self.children.iter(); // TODO: filter the children that are not present in
-                                            // the other
-    }
 }
 
 struct Notification {
@@ -398,8 +393,6 @@ async fn main() {
     }
 }
 
-// hello
-
 /* TODO: Potential bug:
  *
  * If the tree is taking a long time to construct, a tree can take more time to
@@ -428,4 +421,3 @@ async fn main() {
  *
  */
 
-// hello world
